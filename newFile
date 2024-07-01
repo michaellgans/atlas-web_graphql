@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Prompts user for new file name
+printf "New File Name:\t"
+
+# Sets fileName as variable for input
+read fileName
+
+# Write the base file template
+echo "// Task 0 - 
+" > "$fileName"
+
+# Makes new file executable
+chmod u+x "$fileName"
+
+# Opens new file with vi
+vi "$fileName"
