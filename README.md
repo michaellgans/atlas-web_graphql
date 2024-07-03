@@ -12,8 +12,20 @@
   - Uses subscriptions for real time updates.
 
 - What is Graphiql
-  - GraphQL
+  - Graphiql (graphical) is an in-browser tool that allows users to test out GraphQL queries, as well as view schema and documentation.
 - How to test queries using Graphiql
+  - You write the query on the left side and click "Execute" at the top of the editor.  Results are on the right hand side.
+#### Example of query:
+```
+{
+  user(id: "1") {
+    id
+    name
+    email
+  }
+}
+```
+
 - What is Apollo
 - How to connect to mongoDB
 - How to make queries from React
