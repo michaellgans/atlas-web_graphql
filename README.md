@@ -25,11 +25,34 @@
   }
 }
 ```
-
 - What is Apollo
+  - Tools for building GraphQL applications
 - How to connect to mongoDB
+```
+const mongoose = require('mongoose');
+
+async function connectToMongoDB() {
+  const uri = 'mongodb://localhost:27017/<DATABASE NAME HERE>';
+
+  try {
+    await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log('Connected to MongoDB');
+  } catch (err) {
+    console.error('Could not connect to MongoDB', err);
+  }
+}
+
+connectToMongoDB();
+```
 - How to make queries from React
+  - Use Apollo Client to interact with GraphQL server
+  - Set Up Apollo Client
+  - Write Query
+  - Use Query in a React Component
+  - Use Query in App
 - How to make GraphQL server accept request from another server
+  - Set up Apollo Server with CORS
+  - Send request to GraphQL server
 
 ## Requirements
 
