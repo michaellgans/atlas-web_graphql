@@ -49,7 +49,7 @@ connectToMongoDB();
   - Set Up Apollo Client
   - Write Query
   - Use Query in a React Component
-  - Use Query in App
+  - Use component in App
 - How to make GraphQL server accept request from another server
   - Set up Apollo Server with CORS
   - Send request to GraphQL server
