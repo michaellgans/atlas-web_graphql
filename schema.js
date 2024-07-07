@@ -13,3 +13,20 @@ const TaskType = new GraphQLObjectType({
         description: { type: GraphQLString }
     }
 });
+
+// Root Query - entry point to API
+const RootQueryType = new GraphQLObjectType({
+    name: 'RootQueryType',
+    fields: {
+        type: TaskType,
+        args: anything
+    },
+    resolve(parent, args) {};
+});
+
+
+const schema = new GraphQLSchema({
+    query: RootQueryType
+});
+
+module.exports = schema;
