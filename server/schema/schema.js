@@ -53,7 +53,7 @@ const RootQueryType = new GraphQLObjectType({
                 id: { type: GraphQLString }
             },
             resolve(parent, args) {
-                return _.find(fruits, { id: args.id });
+                return _.find(taskAray, { id: args.id });
             }
         }
     }
