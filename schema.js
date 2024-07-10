@@ -1,6 +1,7 @@
 // Task 2 - Add data array
 
 const { GraphQLSchema, GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLList } = require('graphql');
+const _ = require('lodash');
 
 // New Task Type
 const TaskType = new GraphQLObjectType({
@@ -52,7 +53,7 @@ const RootQueryType = new GraphQLObjectType({
                 id: { type: GraphQLString }
             },
             resolve(parent, args) {
-                return tasks.find(task => task.id === args.id);
+                return _.find(fruits, { id: args.id });
             }
         }
     }
