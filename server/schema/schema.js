@@ -1,4 +1,4 @@
-// Task 3 - GraphQLID and Project Type
+// Task 4 - Type Relations
 
 const { GraphQLSchema, GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLList, GraphQLID } = require('graphql');
 const _ = require('lodash');
@@ -6,12 +6,18 @@ const _ = require('lodash');
 // Project Type
 const ProjectType = new GraphQLObjectType({
     name: 'Project',
-    fields: {
+    fields: () => ({
         id: { type: new GraphQLNonNull(GraphQLID) },
+        tasks: { 
+            type: new GraphQLList(TaskType),
+            resolve(parent, args) {
+                return taskAray.filter(task => task.projectId === parent.id.toString());
+            }
+        },
         title: { type: GraphQLString },
         weight: { type: GraphQLInt },
         description: { type: GraphQLString }
-    }
+    })
 });
 
 // Task Type
@@ -21,29 +27,27 @@ const TaskType = new GraphQLObjectType({
     name: 'Task',
     // Details about the data.
     // Example: color, taste, price
-    fields: {
+    fields: () => ({
         // ID cannot be Null
         id: { type: new GraphQLNonNull(GraphQLID) },
         project: { 
             type: ProjectType,
             resolve(parent, args) {
-                console.log('Resolved projectId:', parent.projectId);
                 const project = _.find(projectAray, { id: parent.projectId.toString() });
-                console.log('Found project:', project);
                 return project;
             }
         },
         title: { type: GraphQLString },
         weight: { type: GraphQLInt },
         description: { type: GraphQLString }
-    }
+    })
 });
 
 // Task Aray Data Sample
 // Example: actual fruit inventory
 const taskAray = [
-    {id: '1', projectId: 1, title: 'Create your first webpage', weight: 1, description: 'Create your first HTML file 0-index.html with: -Add the doctype on the first line (without any comment) -After the doctype, open and close a html tag Open your file in your browser (the page should be blank)'},
-    {id: '2', projectId: 1, title: 'Structure your webpage', weight: 1, description: 'Copy the content of 0-index.html into 1-index.html Create the head and body sections inside the html tag, create the head and body tags (empty) in this order'}
+    {id: '1', projectId: '1', title: 'Create your first webpage', weight: 1, description: 'Create your first HTML file 0-index.html with: -Add the doctype on the first line (without any comment) -After the doctype, open and close a html tag Open your file in your browser (the page should be blank)'},
+    {id: '2', projectId: '1', title: 'Structure your webpage', weight: 1, description: 'Copy the content of 0-index.html into 1-index.html Create the head and body sections inside the html tag, create the head and body tags (empty) in this order'}
 ];
 
 // Project Aray Data Sample
