@@ -9,6 +9,10 @@ mongoose.connect('mongodb+srv://michaeluser:iPsGLO66yUuZb4i9@michaellgans.h2s6yw
 
 const app = express();
 
+mongoose.connection.once('open', () => {
+  console.log('connected to MongoDB database');
+});
+
 app.use('/graphql',graphqlHTTP({
   schema: schema,
   // Enables graphiql
