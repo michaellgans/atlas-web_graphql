@@ -56,7 +56,7 @@ const projectAray = [
     {id: '2', title: 'Bootstrap', weight: 1, description: 'Bootstrap is a free and open-source CSS framework directed at responsive, mobile-first front-end web development. It contains CSS and JavaScript design templates for typography, forms, buttons, navigation, and other interface components.'}
 ];
 
-// Root Query - entry point to API
+// Root Query - entry point to Graphiql API
 // Can return all of the data or just based on id.
 const RootQueryType = new GraphQLObjectType({
     name: 'RootQueryType',

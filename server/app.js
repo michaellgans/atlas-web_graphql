@@ -4,6 +4,9 @@ const express = require('express');
 const {graphqlHTTP} = require('express-graphql');
 const schema = require('./schema/schema');
 
+const mongoose = require('mongoose');
+mongoose.connect('mongodb+srv://michaeluser:iPsGLO66yUuZb4i9@michaellgans.h2s6ywa.mongodb.net/?retryWrites=true&w=majority&appName=MichaelLGans')
+
 const app = express();
 
 app.use('/graphql',graphqlHTTP({
