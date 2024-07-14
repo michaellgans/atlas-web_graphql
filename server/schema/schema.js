@@ -1,7 +1,27 @@
-// Task 4 - Type Relations
+// Task 7 - Mutation
 
 const { GraphQLSchema, GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLList, GraphQLID } = require('graphql');
 const _ = require('lodash');
+const Project = require('../models/project');
+const Project = require('../models/task');
+
+// Mutation Type
+const Mutation = new GraphQLObjectType({
+    name: 'Mutation',
+    fields: () => ({
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        addProject: {  },
+        tasks: { 
+            type: new GraphQLList(TaskType),
+            resolve(parent, args) {
+                return taskAray.filter(task => task.projectId === parent.id.toString());
+            }
+        },
+        title: { type: GraphQLString },
+        weight: { type: GraphQLInt },
+        description: { type: GraphQLString }
+    })
+});
 
 // Project Type
 const ProjectType = new GraphQLObjectType({
