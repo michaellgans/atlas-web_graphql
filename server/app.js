@@ -1,11 +1,14 @@
-// Task 0 - initializing the Express server with express-graphql
+// Task 8 - Pull data from MongoDB
 
 const express = require('express');
 const {graphqlHTTP} = require('express-graphql');
 const schema = require('./schema/schema');
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://michaeluser2:iA69CZi5rD60udA5@michaellgans.h2s6ywa.mongodb.net/?retryWrites=true&w=majority&appName=MichaelLGans')
+mongoose.connect('mongodb+srv://michaeluser2:iA69CZi5rD60udA5@michaellgans.h2s6ywa.mongodb.net/?retryWrites=true&w=majority&appName=MichaelLGans', {
+  useNewUrlParser: true, // Uses new parser to avoid deprecation warning
+  useUnifiedTopology: true // Uses new server discovery engine to avoid deprecation warning
+});
 
 const app = express();
 
