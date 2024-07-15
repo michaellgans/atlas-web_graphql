@@ -3,24 +3,31 @@
 const { GraphQLSchema, GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLList, GraphQLID } = require('graphql');
 const _ = require('lodash');
 const Project = require('../models/project');
-const Project = require('../models/task');
+const Task = require('../models/task');
 
 // Mutation Type
 const Mutation = new GraphQLObjectType({
     name: 'Mutation',
-    fields: () => ({
-        id: { type: new GraphQLNonNull(GraphQLID) },
-        addProject: {  },
-        tasks: { 
-            type: new GraphQLList(TaskType),
-            resolve(parent, args) {
-                return taskAray.filter(task => task.projectId === parent.id.toString());
+    fields: {
+        addProject: {
+            type: ProjectType,
+            args: {
+                // Non-Null so users can't mutate without
+                // missing required fields
+                title: { type: new GraphQLNonNull(GraphQLString) },
+                weight: { type: new GraphQLNonNull(GraphQLInt) },
+                description: { type: new GraphQLNonNull(GraphQLString) }
+            },
+            resolve(parent, args){
+                const newProject = new Project({
+                    title: args.title,
+                    weight: args.weight,
+                    description: args.description
+                });
+                return newProject.save();
             }
-        },
-        title: { type: GraphQLString },
-        weight: { type: GraphQLInt },
-        description: { type: GraphQLString }
-    })
+        }
+    }
 });
 
 // Project Type
@@ -133,7 +140,8 @@ const RootQueryType = new GraphQLObjectType({
 });
 
 const schema = new GraphQLSchema({
-    query: RootQueryType
+    query: RootQueryType,
+    mutation: Mutation
 });
 
 module.exports = schema;
