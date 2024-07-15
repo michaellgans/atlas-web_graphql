@@ -5,31 +5,6 @@ const _ = require('lodash');
 const Project = require('../models/project');
 const Task = require('../models/task');
 
-// Mutation Type
-const Mutation = new GraphQLObjectType({
-    name: 'Mutation',
-    fields: {
-        addProject: {
-            type: ProjectType,
-            args: {
-                // Non-Null so users can't mutate without
-                // missing required fields
-                title: { type: new GraphQLNonNull(GraphQLString) },
-                weight: { type: new GraphQLNonNull(GraphQLInt) },
-                description: { type: new GraphQLNonNull(GraphQLString) }
-            },
-            resolve(parent, args){
-                const newProject = new Project({
-                    title: args.title,
-                    weight: args.weight,
-                    description: args.description
-                });
-                return newProject.save();
-            }
-        }
-    }
-});
-
 // Project Type
 const ProjectType = new GraphQLObjectType({
     name: 'Project',
@@ -68,6 +43,30 @@ const TaskType = new GraphQLObjectType({
         weight: { type: GraphQLInt },
         description: { type: GraphQLString }
     })
+});
+
+const Mutation = new GraphQLObjectType({
+    name: 'Mutation',
+    fields: {
+        addProject: {
+            type: ProjectType,
+            args: {
+                // Non-Null so users can't mutate without
+                // missing required fields
+                title: { type: new GraphQLNonNull(GraphQLString) },
+                weight: { type: new GraphQLNonNull(GraphQLInt) },
+                description: { type: new GraphQLNonNull(GraphQLString) }
+            },
+            resolve(parent, args){
+                const newProject = new Project({
+                    title: args.title,
+                    weight: args.weight,
+                    description: args.description
+                });
+                return newProject.save();
+            }
+        }
+    }
 });
 
 // Task Aray Data Sample
