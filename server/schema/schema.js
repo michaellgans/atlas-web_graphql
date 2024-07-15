@@ -65,6 +65,26 @@ const Mutation = new GraphQLObjectType({
                 });
                 return newProject.save();
             }
+        },
+        addTask: {
+            type: TaskType,
+            args: {
+                // Non-Null so users can't mutate without
+                // missing required fields
+                title: { type: new GraphQLNonNull(GraphQLString) },
+                weight: { type: new GraphQLNonNull(GraphQLInt) },
+                description: { type: new GraphQLNonNull(GraphQLString) },
+                projectId: { type: new GraphQLNonNull(GraphQLID)}
+            },
+            resolve(parent, args){
+                const newTask = new Task({
+                    title: args.title,
+                    weight: args.weight,
+                    description: args.description,
+                    projectId: args.projectId
+                });
+                return newTask.save();
+            }
         }
     }
 });
